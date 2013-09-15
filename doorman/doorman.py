@@ -91,6 +91,7 @@ class Doorman:
         """
 
         for config in self.config:
+            print "# hide: " + config['file']
             self.open_and_replace(config['file'], config['secret'], self.wrapper(config['name']))
 
 
@@ -99,4 +100,5 @@ class Doorman:
         Unhide all secret things
         """
         for config in self.config:
+            print "# un-hide: " + config['file']
             self.open_and_replace(config['file'], self.wrapper(config['name']), config['secret'])
