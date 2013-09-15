@@ -12,7 +12,7 @@ Install
 Usage
 -----
 
-Firstly, you should create a config file(~/.doormanrc) and put in text like below lines:
+Firstly, you should create a config file(~/.doormanrc) or put in text like below lines:
 
 .. code-block::
 
@@ -48,6 +48,26 @@ Un-hide all secret things;
     ... my twitter password is 12345678 ...
     ... i keep really secret thing from other ...
 
+Help for usage;
+
+.. code-block::
+
+    doorman -h
+
+.. code-block::
+
+    usage: doorman [-h] [-s] [-u] [-c CONFIG_FILE]
+
+    Doorman keeps your secret things
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -s, --secret          Hide all secret things
+      -u, --unsecret        Open all secret things
+      -c CONFIG_FILE, --config CONFIG_FILE
+                            Config file
+
+
 TODO
 ----
 
@@ -59,3 +79,4 @@ File open and replace: need to completely re-write
 
 Add More exception handler
 
+Write tests
