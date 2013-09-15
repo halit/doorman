@@ -29,12 +29,6 @@ def main():
     if not is_default_config():
         print "# running" + args.config_file.name + " config file"
         doorman = Doorman(args.status, os.path.abspath(args.config_file.name))
-
-        if args.status:
-            print "# hide all secret things"
-        else:
-            print "# open all secret things"
-
         doorman.run()
     else:
         parser.print_help()
