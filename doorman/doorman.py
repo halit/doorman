@@ -1,10 +1,8 @@
-from ConfigParser import ConfigParser
-
-
 class Config:
     """
     Config class
     """
+
     def __init__(self, config_file):
         """
         Initialize Config class
@@ -13,6 +11,7 @@ class Config:
         """
 
         self.config_file = config_file
+        self.configs = list()
 
     def parse(self):
         """
@@ -20,26 +19,24 @@ class Config:
         It parse config file to dict
         """
 
-        config = ConfigParser()
-        config.read([self.config_file])
+        with open(self.config_file, "r") as f:
+            lines = f.read()
+            lines = lines.splitlines()
 
-        configs = dict()
-        config_secrets = dict()
+        for line in lines:
+            name, secret, file_p = line.split(">>")
+            self.configs.append(dict(name=name.strip(),
+                                     secret=secret.strip(),
+                                     file=file_p.strip()))
 
-        for key, value in config.items('secrets'):
-            config_secrets[key] = value
-
-        for key, value in config.items('files'):
-            configs[key] = dict(secret_thing=config_secrets[key],
-                                secret_file=value)
-
-        return configs
+        return self.configs
 
 
 class Doorman:
     """
     Doorman main class
     """
+
     def __init__(self, status, config_file):
         """
         Initialize Doorman class
@@ -71,11 +68,22 @@ class Doorman:
         :param old: Old string
         :param new: New string
         """
+        try:
+            with open(file_path, "r") as f:
+                full_text = f.read()
+        except IOError:
+            print "File not read: " + file_path
 
-        with open(file_path, "w") as f:
-            full_text = f.read()
-            full_text = full_text.replace(old, new)
-            f.write(full_text)
+        full_text = full_text.replace(old, new)
+
+        try:
+            with open(file_path, "w") as f:
+                f.write(full_text)
+        except IOError:
+            print "File not write: " + file_path
+
+    def wrapper(self, string):
+        return "{{ " + string + " }}"
 
     def hide(self):
         """
@@ -85,15 +93,13 @@ class Doorman:
         secret_file[1]:
         """
 
-        for key, value in self.config.items():
-            secret_thing, secret_file = value.items()
-            print secret_file
-            #self.open_and_replace(secret_file[1], secret_thing[1], secret_thing[1])
+        for config in self.config:
+            self.open_and_replace(config['file'], config['secret'], self.wrapper(config['name']))
 
 
     def unhide(self):
         """
         Unhide all secret things
         """
-
-        pass
+        for config in self.config:
+            self.open_and_replace(config['file'], self.wrapper(config['name']), config['secret'])
