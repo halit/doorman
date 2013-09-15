@@ -88,9 +88,6 @@ class Doorman:
     def hide(self):
         """
         Hide all secret things
-
-        secret_thing[1]:
-        secret_file[1]:
         """
 
         for config in self.config:
