@@ -1,0 +1,17 @@
+[secrets]
+# social accounts
+twitter_password = 12345678
+github_password = 12345678
+
+# secret text
+my_secret = really secret thing
+
+# secret function
+my_func = [i for i in others if i < 3]
+
+# files
+[files]
+twitter_password = /home/user/twitter.rb
+github_password = /home/user/pythoncodes/githubapi.py
+my_secret = /etc/secret.conf
+my_func = /home/user/my.py
