@@ -1,7 +1,7 @@
 Doorman
 =======
 
-Doorman keeps your secret things
+Doorman keeps your secret things but main purpose of this tool, the convenience of the people working on the same file does not store passwords.
 
 Install
 -------
