@@ -21,10 +21,10 @@ class Config:
 
         with open(self.config_file, "r") as f:
             lines = f.read()
-            lines = lines.splitlines()
 
+        lines = [line.split(">>") for line in lines.splitlines() if not line.startswith("#") and line]
         for line in lines:
-            name, secret, file_p = line.split(">>")
+            name, secret, file_p = line
             self.configs.append(dict(name=name.strip(),
                                      secret=secret.strip(),
                                      file=file_p.strip()))
