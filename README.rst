@@ -4,7 +4,7 @@ Doorman
    :target: https://pypi.python.org/pypi/doorman
 .. image:: https://pypip.in/d/doorman/badge.png
    :target: https://crate.io/packages/doorman/
-.. image:: https://travis-ci.org/halitalptekin/doorman
+.. image:: https://api.travis-ci.org/halitalptekin/doorman.png
     :target: https://travis-ci.org/halitalptekin/doorman
 .. image:: https://pypip.in/license/doorman/badge.png
     :target: https://pypi.python.org/pypi/doorman/   
