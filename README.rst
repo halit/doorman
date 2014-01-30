@@ -4,6 +4,10 @@ Doorman
    :target: https://pypi.python.org/pypi/doorman
 .. image:: https://pypip.in/d/doorman/badge.png
    :target: https://crate.io/packages/doorman/
+.. image:: https://travis-ci.org/halitalptekin/doorman
+    :target: https://travis-ci.org/halitalptekin/doorman
+.. image:: https://pypip.in/license/doorman/badge.png
+    :target: https://pypi.python.org/pypi/doorman/   
 
 Doorman keeps your secret things but main purpose of this tool, the convenience of the people working on the same file does not store passwords.
 
