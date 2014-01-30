@@ -1,7 +1,11 @@
 Doorman
 =======
+.. image:: https://pypip.in/v/doorman/badge.png
+   :target: https://pypi.python.org/pypi/doorman
+.. image:: https://pypip.in/d/doorman/badge.png
+   :target: https://crate.io/packages/doorman/
 
-Doorman keeps your secret things
+Doorman keeps your secret things but main purpose of this tool, the convenience of the people working on the same file does not store passwords.
 
 Install
 -------
@@ -76,7 +80,3 @@ Config Parse: need to find an elegant solution
 Command line: need to fix logically bug
 
 File open and replace: need to completely re-write
-
-Add More exception handler
-
-Write tests
