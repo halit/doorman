@@ -1,18 +1,22 @@
-import argparse, os, logging
+import argparse, os, logging, appdirs
 from doorman import Doorman, DoormanException
 
-DEFAULT_CONFIG_PATH = os.path.join(os.path.expanduser("~"), ".config/doorman.yml")
+DEFAULT_CONFIG_PATH = appdirs.user_config_dir("doorman")
+DEFAULT_CONFIG_FILE = os.path.join(DEFAULT_CONFIG_PATH, "doorman.yml")
 DEFAULT_CONFIG = """test_file:
  test_secret: my secret thing"""
 
 if not os.path.exists(DEFAULT_CONFIG_PATH):
-    with open(DEFAULT_CONFIG_PATH, "w") as f:
+    os.makedirs(DEFAULT_CONFIG_PATH)
+
+if not os.path.exists(DEFAULT_CONFIG_FILE):
+    with open(DEFAULT_CONFIG_FILE, "w") as f:
         f.write(DEFAULT_CONFIG)
-    os.chmod(DEFAULT_CONFIG_PATH, 0o600)
+    os.chmod(DEFAULT_CONFIG_FILE, 0o600)
 
 
 def is_default_config():
-    return open(DEFAULT_CONFIG_PATH, "r").read() == DEFAULT_CONFIG
+    return open(DEFAULT_CONFIG_FILE, "r").read() == DEFAULT_CONFIG
 
 parser = argparse.ArgumentParser(description='Doorman keeps your secret things')
 parser.set_defaults(status=True)

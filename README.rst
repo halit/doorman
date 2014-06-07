@@ -20,7 +20,7 @@ Install
 Usage
 -----
 
-Firstly, you should create a config file(~/.doormanrc.yml) or put in text like below lines:
+Firstly, you should create a config file(~/.config/doorman.yml) or put in text like below lines:
 
 .. code-block::
     
@@ -44,6 +44,11 @@ Hide all secret things;
 .. code-block:: 
 
     doorman -s
+
+.. code-block:: 
+
+    # Doorman defaults to -s when no argument is given
+    doorman
     
 .. code-block::     
 
@@ -69,21 +74,20 @@ Help for usage;
 
 .. code-block::
 
-    usage: doorman [-h] [-s] [-u] [-c CONFIG_FILE]
+    usage: doorman [-h] [-s | -u] [-v] [-c CONFIG_FILE]
 
     Doorman keeps your secret things
 
     optional arguments:
       -h, --help            show this help message and exit
-      -s, --secret          Hide all secret things
       -u, --unsecret        Open all secret things
+      -s, --secret          Hide all secret things
+      -v, --verbose         Show all messages
       -c CONFIG_FILE, --config CONFIG_FILE
                             Config file
 
 
 TODO
 ----
-
-Command line: need to fix logically bug
 
 File open and replace: need to completely re-write
