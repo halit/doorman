@@ -1,9 +1,10 @@
 import argparse
 import os
-from doorman import Doorman
+from doorman import Doorman, DoormanException
 
-DEFAULT_CONFIG_PATH = os.path.join(os.path.expanduser("~"), ".doormanrc")
-DEFAULT_CONFIG = """test_secret >> my secret thing >> test_file"""
+DEFAULT_CONFIG_PATH = os.path.join(os.path.expanduser("~"), ".doormanrc.yml")
+DEFAULT_CONFIG = """test_file:
+ test_secret: my secret thing"""
 
 if not os.path.exists(DEFAULT_CONFIG_PATH):
     with open(DEFAULT_CONFIG_PATH, "w") as f:
@@ -27,9 +28,12 @@ def main():
     """
 
     if not is_default_config():
-        print "# running" + args.config_file.name + " config file"
-        doorman = Doorman(args.status, os.path.abspath(args.config_file.name))
-        doorman.run()
+        try:
+            doorman = Doorman(args.status, os.path.abspath(args.config_file.name))
+            doorman.run()
+        except DoormanException, e:
+            print e, '\n'
+            parser.print_help()
     else:
         parser.print_help()
 
