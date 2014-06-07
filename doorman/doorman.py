@@ -40,6 +40,9 @@ class DoormanConfig(object):
         except yaml.scanner.ScannerError, e:
             raise DoormanException("Error parsing config YAML", e)
 
+        if self.__configs is None:
+            raise DoormanException("Error: empty config", None)
+
         for location in self.__configs:
             if not os.path.exists(location):
                 raise DoormanException("File in config not found", location)
