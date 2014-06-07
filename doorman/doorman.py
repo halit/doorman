@@ -1,4 +1,4 @@
-import yaml, os
+import yaml, os, logging
 
 class DoormanException(Exception):
     """
@@ -108,7 +108,7 @@ class Doorman(object):
                 self.__open_and_replace(location,
                                         secret,
                                         self.__wrapper(name))
-                print "# " + "hide:" + " " + location
+                logging.info("hide: %s" % location)
 
     def __unhide(self):
         """
@@ -119,4 +119,4 @@ class Doorman(object):
                 self.__open_and_replace(location,
                                         self.__wrapper(name),
                                         secret)
-                print "# " + "unhide:" + " " + location
+                logging.info("unhide: %s" % location)
