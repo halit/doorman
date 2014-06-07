@@ -20,19 +20,24 @@ Install
 Usage
 -----
 
-Firstly, you should create a config file(~/.doormanrc) or put in text like below lines:
+Firstly, you should create a config file(~/.doormanrc.yml) or put in text like below lines:
 
 .. code-block::
-
+    
     # social accounts
-    twitter_password >> 12345678 >> /home/user/twitter.rb
-    github_password >> 12345678 >> /home/user/pythoncodes/githubapi.py
+    /home/user/twitter.rb:
+     twitter_passowrd: bHc0yz
+     private_key: 1VpzKbLDTqC1vXb
+    /home/user/pythoncodes/githubapi.py
+     github_password: wKJ4cV
 
     # secret text
-    my_secret >> really secret thing >> /etc/secret.conf
+    /etc/secret.conf:
+     my_secret: really secret thing
 
     # secret function
-    my_func >> [i for i in others if i < 3] >> /home/user/my.py
+    ../settings/my_settings.py:
+     my_func: [i for i in others if i < 3]
 
 Hide all secret things;
 
@@ -53,7 +58,7 @@ Un-hide all secret things;
     
 .. code-block::     
 
-    ... my twitter password is 12345678 ...
+    ... my twitter password is bHc0yz ...
     ... i keep really secret thing from other ...
 
 Help for usage;
@@ -78,8 +83,6 @@ Help for usage;
 
 TODO
 ----
-
-Config Parse: need to find an elegant solution
 
 Command line: need to fix logically bug
 
