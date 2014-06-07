@@ -26,7 +26,7 @@ Firstly, you should create a config file(~/.config/doorman.yml) or put in text l
     
     # social accounts
     /home/user/twitter.rb:
-     twitter_passowrd: bHc0yz
+     twitter_password: bHc0yz
      private_key: 1VpzKbLDTqC1vXb
     /home/user/pythoncodes/githubapi.py
      github_password: wKJ4cV
