@@ -1,19 +1,18 @@
-class DoormanError(Exception):
+import yaml, os, logging
+
+class DoormanException(Exception):
     """
     Doorman exception class
     """
-    def __init__(self, name):
+    def __init__(self, name, message):
         """
         DoormanException class constructor
         :param name: string
         """
         self.name = name
+        self.message = message
 
-    def __repr__(self):
-        """
-        DoormanException repr method
-        """
-        return "<", self.name, ">"
+        Exception.__init__(self, '%s: %s' % (self.name,self.message))
 
 
 class DoormanConfig(object):
@@ -28,23 +27,28 @@ class DoormanConfig(object):
         self.__config_file = config_file
         self.__configs = []
 
-    def parse(self):
+    def parseYAML(self):
         """
-        Config parser method
+        Config parser method for parsing YAML
         :return type: list of dict(name, secret, file_name)
         """
         with open(self.__config_file, "r") as f:
             lines = f.read()
 
-        lines = [line.split(">>") for line in lines.splitlines()
-                 if not line.startswith("#") and line]
-        for line in lines:
-            name, secret, file_path = line
-            self.__configs.append(dict(name=name.strip(),
-                                       secret=secret.strip(),
-                                       file_path=file_path.strip()))
-            return self.__configs
+        try:
+            self.__configs = yaml.load(lines)
+        except yaml.scanner.ScannerError, e:
+            raise DoormanException("Error parsing config YAML", e)
 
+        if self.__configs is None:
+            raise DoormanException("Error: empty config", None)
+
+        for location in self.__configs:
+            if not os.path.exists(location):
+                raise DoormanException("File in config not found", location)
+
+
+        return self.__configs;
 
 class Doorman(object):
     """
@@ -57,7 +61,7 @@ class Doorman(object):
         :param config_file: file path
         """
         self.__status = status
-        self.__config = DoormanConfig(config_file).parse()
+        self.__config = DoormanConfig(config_file).parseYAML()
 
     def run(self):
         """
@@ -79,7 +83,8 @@ class Doorman(object):
             with open(file_path, "r") as f:
                 full_text = f.read()
         except IOError:
-            raise DoormanError("File not read", str(file_path))
+            raise DoormanException("File not read", str(file_path))
+
 
         full_text = full_text.replace(old, new)
 
@@ -87,12 +92,12 @@ class Doorman(object):
             with open(file_path, "w") as f:
                 f.write(full_text)
         except IOError:
-            raise DoormanError("File not write", str(file_path))
+            raise DoormanException("File not write", str(file_path))
 
     def __wrapper(self, s):
         """
         Wrapper method for strings
-        :param s: string to will be wrap
+        :param s: string to be wrapped
         :return type: string
         """
         return "{{" + s + "}}"
@@ -101,18 +106,20 @@ class Doorman(object):
         """
         Method for hide all secret things
         """
-        for config in self.__config:
-            self.__open_and_replace(config['file_path'],
-                                    config['secret'],
-                                    self.__wrapper(config['name']))
-            print "# " + "hide:" + " " + config['file_path']
+        for location, replacevalues in self.__config.items():
+            for name, secret in replacevalues.items():
+                self.__open_and_replace(location,
+                                        secret,
+                                        self.__wrapper(name))
+                logging.info("hide: %s" % location)
 
     def __unhide(self):
         """
         Method for unhide all secret things
         """
-        for config in self.__config:
-            self.__open_and_replace(config['file_path'],
-                                    self.__wrapper(config['name']),
-                                    config['secret'])
-            print "# " + "unhide:" + " " + config['file_path']
+        for location, replacevalues in self.__config.items():
+            for name, secret in replacevalues.items():
+                self.__open_and_replace(location,
+                                        self.__wrapper(name),
+                                        secret)
+                logging.info("unhide: %s" % location)
