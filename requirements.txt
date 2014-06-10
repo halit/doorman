@@ -1,1 +1,3 @@
 nose
+pyYAML
+appdirs
