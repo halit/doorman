@@ -20,7 +20,7 @@ Install
 Usage
 -----
 
-Firstly, you should create a config file(~/.config/doorman.yml) or put in text like below lines:
+Firstly, you should create a config file(~/.config/doorman/doorman.yml) or put in text like below lines:
 
 .. code-block::
     
@@ -28,7 +28,7 @@ Firstly, you should create a config file(~/.config/doorman.yml) or put in text l
     /home/user/twitter.rb:
      twitter_password: bHc0yz
      private_key: 1VpzKbLDTqC1vXb
-    /home/user/pythoncodes/githubapi.py
+    /home/user/pythoncodes/githubapi.py:
      github_password: wKJ4cV
 
     # secret text
