@@ -5,7 +5,7 @@ except ImportError:
 
 config = dict(description='Doorman keeps your secret things', author='Halit Alptekin',
               url='https://github.com/halitalptekin/doorman', author_email='info@halitalptekin.com', license='MIT',
-              keywords='password,secret,parse,config,security, crypt', version='0.4.1', install_requires=['nose','pyYAML','appdirs'],
+              keywords='password,secret,parse,config,security, crypt', version='0.4.2', install_requires=['nose','pyYAML','appdirs'],
               packages=['doorman'], scripts=[], name='doorman', entry_points={
         'console_scripts': ['doorman = doorman.main:main', ]})
 
