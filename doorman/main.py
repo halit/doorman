@@ -25,7 +25,7 @@ group.add_argument('-u', '--unsecret', action="store_false", dest="status", help
 group.add_argument('-s', '--secret', action="store_true", dest="status", help='Hide all secret things')
 parser.add_argument('-v', '--verbose', action="store_true", dest="verbose", help='Show all messages')
 parser.add_argument('-c', '--config', action="store", dest="config_file",
-                    default=DEFAULT_CONFIG_PATH, help='Config file')
+                    default=DEFAULT_CONFIG_FILE, help='Config file')
 args = parser.parse_args()
 
 
